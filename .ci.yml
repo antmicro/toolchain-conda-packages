@@ -1,0 +1,87 @@
+image: ubuntu:18.04
+
+before_script:
+    - apt update && apt install -y file patch curl build-essential libncurses5-dev libncursesw5-dev rsync
+    - curl -O https://repo.anaconda.com/archive/Anaconda3-2019.03-Linux-x86_64.sh
+    - bash Anaconda3-2019.03-Linux-x86_64.sh -b -p "$PWD/anaconda"
+    - export PATH="$PWD/anaconda/bin:$PATH"
+
+.artifacts_template: &artifacts_definition
+    artifacts:
+        when: on_failure
+        paths:
+            - "$PWD/anaconda/conda-bld"
+        expire_in: 1 week
+    artifacts:
+        when: on_success
+        paths:
+            - "$PWD/anaconda/conda-bld/linux-64/toolchain-${TOOLCHAIN_VARIANT}*.tar.bz2"
+        expire_in: 1 week
+
+# RISC-V32
+riscv32-linux-musl:
+    variables:
+        TOOLCHAIN_VARIANT: riscv32-linux-musl
+    script:
+        - conda build --variants "{'ctng_target_platform': ['riscv32-linux-musl'], 'ctng_target_platform_short': ['riscv32-linux-musl'], 'ctng_libc': ['musl'], 'ctng_cpu_arch': ['riscv']}" binaries/ -c antmicro
+        - conda build --variants "{'ctng_target_platform': ['riscv32-linux-musl'], 'ctng_target_platform_short': ['riscv32-linux-musl'], 'ctng_libc': ['musl'], 'ctng_cpu_arch': ['riscv']}" activation_scripts/ -c antmicro
+    <<: *artifacts_definition
+
+riscv32-elf-nostdc:
+    variables:
+        TOOLCHAIN_VARIANT: riscv32-elf-nostdc
+    script:
+        - conda build --variants "{'ctng_target_platform': ['riscv32-elf-nostdc'], 'ctng_target_platform_short': ['riscv32-elf'], 'ctng_libc': ['nostdc'], 'ctng_cpu_arch': ['riscv']}" binaries/ -c antmicro
+        - conda build --variants "{'ctng_target_platform': ['riscv32-elf-nostdc'], 'ctng_target_platform_short': ['riscv32-elf'], 'ctng_libc': ['nostdc'], 'ctng_cpu_arch': ['riscv']}" activation_scripts/ -c antmicro
+    <<: *artifacts_definition
+
+riscv32-elf-newlib:
+    variables:
+        TOOLCHAIN_VARIANT: riscv32-elf-newlib
+    script:
+        - conda build --variants "{'ctng_target_platform': ['riscv32-elf-newlib'], 'ctng_target_platform_short': ['riscv32-elf'], 'ctng_libc': ['newlib'], 'ctng_cpu_arch': ['riscv']}" binaries/ -c antmicro
+        - conda build --variants "{'ctng_target_platform': ['riscv32-elf-newlib'], 'ctng_target_platform_short': ['riscv32-elf'], 'ctng_libc': ['newlib'], 'ctng_cpu_arch': ['riscv']}" activation_scripts/ -c antmicro
+    <<: *artifacts_definition
+
+# OR1K
+or1k-elf-nostdc:
+    variables:
+        TOOLCHAIN_VARIANT: or1k-elf-nostdc
+    script:
+        - conda build --variants "{'ctng_target_platform': ['or1k-elf-nostdc'], 'ctng_target_platform_short': ['or1k-elf'], 'ctng_libc': ['nostdc'], 'ctng_cpu_arch': ['or1k']}" binaries/ -c antmicro
+        - conda build --variants "{'ctng_target_platform': ['or1k-elf-nostdc'], 'ctng_target_platform_short': ['or1k-elf'], 'ctng_libc': ['nostdc'], 'ctng_cpu_arch': ['or1k']}" activation_scripts/ -c antmicro
+    <<: *artifacts_definition
+
+or1k-elf-newlib:
+    variables:
+        TOOLCHAIN_VARIANT: or1k-elf-newlib
+    script:
+        - conda build --variants "{'ctng_target_platform': ['or1k-elf-newlib'], 'ctng_target_platform_short': ['or1k-elf'], 'ctng_libc': ['newlib'], 'ctng_cpu_arch': ['or1k']}" binaries/ -c antmicro
+        - conda build --variants "{'ctng_target_platform': ['or1k-elf-newlib'], 'ctng_target_platform_short': ['or1k-elf'], 'ctng_libc': ['newlib'], 'ctng_cpu_arch': ['or1k']}" activation_scripts/ -c antmicro
+    <<: *artifacts_definition
+
+or1k-linux-musl:
+    variables:
+        TOOLCHAIN_VARIANT: or1k-linux-musl
+    script:
+        - conda build --variants "{'ctng_target_platform': ['or1k-linux-musl'], 'ctng_target_platform_short': ['or1k-linux-musl'], 'ctng_libc': ['musl'], 'ctng_cpu_arch': ['or1k']}" binaries/ -c antmicro
+        - conda build --variants "{'ctng_target_platform': ['or1k-linux-musl'], 'ctng_target_platform_short': ['or1k-linux-musl'], 'ctng_libc': ['musl'], 'ctng_cpu_arch': ['or1k']}" activation_scripts/ -c antmicro
+    <<: *artifacts_definition
+
+# LM32
+lm32-elf-nostdc:
+    variables:
+        TOOLCHAIN_VARIANT: lm32-elf-nostdc
+    script:
+        - conda build --variants "{'ctng_target_platform': ['lm32-elf-nostdc'], 'ctng_target_platform_short': ['lm32-elf'], 'ctng_libc': ['nostdc'], 'ctng_cpu_arch': ['lm32']}" binaries/ -c antmicro
+        - conda build --variants "{'ctng_target_platform': ['lm32-elf-nostdc'], 'ctng_target_platform_short': ['lm32-elf'], 'ctng_libc': ['nostdc'], 'ctng_cpu_arch': ['lm32']}" activation_scripts/ -c antmicro
+    <<: *artifacts_definition
+
+lm32-elf-newlib:
+    variables:
+        TOOLCHAIN_VARIANT: lm32-elf-newlib
+    script:
+        - conda build --variants "{'ctng_target_platform': ['lm32-elf-newlib'], 'ctng_target_platform_short': ['lm32-elf'], 'ctng_libc': ['newlib'], 'ctng_cpu_arch': ['lm32']}" binaries/ -c antmicro
+        - conda build --variants "{'ctng_target_platform': ['lm32-elf-newlib'], 'ctng_target_platform_short': ['lm32-elf'], 'ctng_libc': ['newlib'], 'ctng_cpu_arch': ['lm32']}" activation_scripts/ -c antmicro
+    <<: *artifacts_definition
+
