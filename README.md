@@ -5,21 +5,22 @@
 ## Content
 
 This repository contains conda recipes for building toolchains
-(binutils + gcc cross-compiler) in different configurations using
+(binutils + gcc cross-compiler) in different configurations using the
 [crosstool-ng](https://github.com/crosstool-ng/crosstool-ng) generator.
 
 Currently supported target architectures and configurations are:
+
 * RISC-V 32-bit
-    * nostdc
-    * newlib
-    * linux-musl
+  * nostdc
+  * newlib
+  * linux-musl
 * OpenRISC (or1k)
-    * nostdc
-    * newlib
-    * linux-musl
+  * nostdc
+  * newlib
+  * linux-musl
 * LM32
-    * nostdc
-    * newlib
+  * nostdc
+  * newlib
 
 The repository contains also a `.ci.yml` file with an example of a CI/CD
 configuration that can  be used to automatically generate the toolchains.
@@ -71,17 +72,18 @@ conda build recipe/toolchains
 ```
 
 The instructions above select toolchain configuration and start the build process.
-Once the building is finished, the result conda package is located in `anaconda/conda-bld/linux-64/`.
+Once the building is finished, the resulting conda package is located in `anaconda/conda-bld/linux-64/`.
 
-Toolchain variant consists of three parts:
+A toolchain variant consists of three parts:
+
 * architecture
-    * riscv32
-    * or1k
-    * lm32
+  * riscv32
+  * or1k
+  * lm32
 * variant
-    * elf
-    * linux
+  * elf
+  * linux
 * standard library type
-    * nostdc
-    * newlib
-    * musl
+  * nostdc
+  * newlib
+  * musl
