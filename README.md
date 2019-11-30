@@ -22,14 +22,24 @@ Currently supported target architectures and configurations are:
     * newlib
 
 The repository contains also a `.ci.yml` file with an example of a CI/CD
-configuration that could be used to automatically generate all toolchains.
+configuration that can  be used to automatically generate the toolchains.
+
+The CI system used is based on [GitLab CI](https://docs.gitlab.com/ee/ci/).
+
+It follows the instructions described below, to create `toolchain-*` packages available on [Antmicro's conda channel](https://anaconda.org/antmicro/repo).
 
 This repository uses patched versions of `crosstool-ng` and `musl`.
 All patches are available in `recipe\patches`.
 
 ## Pre-built versions
 
-Pre-built versions of all toolchains are available on [antmicro's conda channel](https://anaconda.org/antmicro/repo).
+Pre-built versions of all toolchains are available on [Antmicro's conda channel](https://anaconda.org/antmicro/repo).
+
+To install them, call:
+
+```
+conda install -c antmicro {TOOLCHAIN_NAME}
+```
 
 ## Building recipes
 
@@ -57,7 +67,7 @@ and set the `PATH` environment variable accordingly to make the `conda` command 
 
 ```
 export TOOLCHAIN_VARIANT=riscv32-linux-musl
-conda build recipe/
+conda build recipe/toolchains
 ```
 
 The instructions above select toolchain configuration and start the build process.
