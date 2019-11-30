@@ -30,7 +30,7 @@ The CI system used is based on [GitLab CI](https://docs.gitlab.com/ee/ci/).
 It follows the instructions described below, to create `toolchain-*` packages available on [Antmicro's conda channel](https://anaconda.org/antmicro/repo).
 
 This repository uses patched versions of `crosstool-ng` and `musl`.
-All patches are available in `recipe\patches`.
+All patches are available in `recipe/patches`.
 
 ## Pre-built versions
 
