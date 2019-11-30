@@ -42,6 +42,12 @@ To install them, call:
 conda install -c antmicro {TOOLCHAIN_NAME}
 ```
 
+To install them, run:
+
+```
+conda install -c antmicro {TOOLCHAIN_NAME}
+```
+
 ## Building recipes
 
 The instructions below are targeted for Ubuntu 18.04.
