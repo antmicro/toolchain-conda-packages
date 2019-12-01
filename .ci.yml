@@ -1,5 +1,6 @@
 image: ubuntu:18.04
 
+
 before_script:
     - apt update && apt install -y file patch curl build-essential libncurses5-dev libncursesw5-dev rsync
     - curl -O https://repo.anaconda.com/archive/Anaconda3-2019.03-Linux-x86_64.sh
