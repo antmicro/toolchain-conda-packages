@@ -34,9 +34,7 @@ All patches are available in `recipe/patches`.
 
 ## Pre-built versions
 
-Pre-built versions of all toolchains are available on [Antmicro's conda channel](https://anaconda.org/antmicro/repo).
-
-To install them, call:
+To install the pre-built packages with Conda, call:
 
 ```
 conda install -c antmicro {TOOLCHAIN_NAME}
